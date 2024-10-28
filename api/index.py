@@ -1,5 +1,6 @@
 from flask import Flask , request
 import requests , json , random
+import yt_dlp
 
 
 app = Flask(__name__)
@@ -16,37 +17,31 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route('/search/',methods=["GET"])
 def search():
-    query = request.args.get("s")
-    key = 'hitokoto'
-    url = requests.get("https://api.pwxiao.top/sentences/i.json")
-    text = url.text
-    data = json.loads(text)
-        
-    matches = [item for item in data if key in item and query in item[key]]
-    matches = json.dumps(matches,ensure_ascii=False)
-    return matches
-    
+    url = get_audio_url()
+
+    print("is in search function  url :"+url)
+    return url
+
+
+def get_audio_url():
+    video_url = 'https://www.youtube.com/watch?v=_ZcmuKsyvzg'  # 替换为实际的视频链接
+    ydl_opts = {
+        'format': 'bestaudio/best',  # 获取最佳音频格式
+        'noplaylist': True,  # 如果链接是一个播放列表，仅下载第一个视频
+        'quiet': True,  # 禁止额外输出
+        'extract_flat': True,  # 提取信息而不下载
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(video_url, download=False)
+        audio_url = info_dict['url']
+        print("Audio URL:", audio_url)
+        return audio_url
+
 
 
 @app.route('/',methods=["GET"])
 def return_OneText():
-
-    category = request.args.get("category")
-
-    category =  select(category)
-    url = requests.get("https://api.pwxiao.top/sentences/" + category + ".json")
-    text = url.text
-    # with open("../sentences/"+category+".json",'r',encoding='utf-8') as f:
-    #      text = f.read()       
-
-    res = json.loads(text)
-
-    try:
-        number = random.randint(0,(len(res) - 1))
-    except:
-        number = 6
-
-    result = res[number]
-    fina_res = json.dumps(result,ensure_ascii=False)
- 
-    return fina_res
+    url = get_audio_url()
+    print("is in return_OneText:" + url)
+    return url

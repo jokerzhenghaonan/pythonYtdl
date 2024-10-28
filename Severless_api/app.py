@@ -6,6 +6,7 @@ import random
 # 此函数基于给定的参数 a 从预定义的字典中选择一个对应的值。
 # 如果参数 a 不在字典的键中，则随机选择一个键的值返回。
 def select(a):
+    print('is in select a')
     dict = {'Anime': 'a', 'Comic': 'b', 'Game': 'c', 'Literature': 'd', 'Original': 'e', 'Internet': 'f', 'Other': 'g', 'Video': 'h', 'Poem': 'i', 'NCM': 'j', 'Philosophy': 'k', 'Funny': 'l'}
     if str(a) in dict.keys():
         return dict[str(a)]
@@ -20,7 +21,7 @@ def handler(event, context):
     path = my_event['requestContext']['http']['path']
     # 尝试获取查询参数中的 'category' 值，如果不存在则为 None。
     category_value = my_event.get('queryParameters', {}).get('category')
-
+    print('is in handler')
     # 如果请求路径为根路径 '/'，则执行以下逻辑。
     if path == '/':
         # 使用 select 函数根据 category_value 获取一个类别标识符。
