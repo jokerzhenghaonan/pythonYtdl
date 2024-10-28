@@ -2,6 +2,8 @@
 import requests
 import json
 import os
+import sys
+sys.path.append('python_modules')
 import yt_dlp
 
 def main():

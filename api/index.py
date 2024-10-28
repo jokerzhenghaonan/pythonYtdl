@@ -1,8 +1,8 @@
 from flask import Flask , request
 import requests , json , random
+import sys
+sys.path.append('python_modules')
 import yt_dlp
-
-
 app = Flask(__name__)
 def select(a):
     dict ={'Anime':'a','Comic':'b','Game':'c','Literature':'d','Original':'e','Internet':'f','Other':'g','Video':'h','Poem':'i','NCM':'j','Philosophy':'k','Funny':'l'}
