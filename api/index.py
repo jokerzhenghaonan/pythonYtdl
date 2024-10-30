@@ -24,7 +24,7 @@ def search():
 
 
 def get_audio_url():
-    video_url = 'https://www.youtube.com/watch?v=_ZcmuKsyvzg'  # 替换为实际的视频链接
+    video_url = 'https://www.youtube.com/watch?v=_ZcmuKsyvzg&key=AIzaSyBeLbXYguI1KK7xZtc03SBSz9zuj5'  # 替换为实际的视频链接
     ydl_opts = {
         'format': 'bestaudio/best',  # 获取最佳音频格式
         'noplaylist': True,  # 如果链接是一个播放列表，仅下载第一个视频

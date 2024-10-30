@@ -26,6 +26,8 @@ def list_formats(url):
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.extract_info(url, download=False)
 
+API_KEY = 'AIzaSyBeLbXYguI1KK7xZtc03SBSz9zuj5-FiIA'
+
 def get_audio_url(video_url):
     ydl_opts = {
         'format': 'bestaudio/best',  # 获取最佳音频格式
@@ -44,5 +46,5 @@ def get_audio_url(video_url):
 
 
 if __name__ == "__main__":
-    video_url = 'https://www.youtube.com/watch?v=_ZcmuKsyvzg'  # 替换为实际的视频链接
+    video_url = 'https://www.youtube.com/watch?v=_ZcmuKsyvzg&key=AIzaSyBeLbXYguI1KK7xZtc03SBSz9zuj5'  # 替换为实际的视频链接
     get_audio_url(video_url)
