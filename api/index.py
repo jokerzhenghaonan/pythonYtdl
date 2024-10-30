@@ -9,23 +9,19 @@ import logging
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 app = Flask(__name__)
-def select(a):
-    dict ={'Anime':'a','Comic':'b','Game':'c','Literature':'d','Original':'e','Internet':'f','Other':'g','Video':'h','Poem':'i','NCM':'j','Philosophy':'k','Funny':'l'}
-    if str(a) in dict.keys() :
-        return dict[str(a)]
-    else :
-        return dict[str(random.choice(list(dict.keys())))]
-
-app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
-
 
 @app.route('/search/',methods=["GET"])
 def search():
-    url = get_audio_url()
-
-    print("is in search function  url :"+url)
-    return url
+    video_url = "https://www.youtube.com/watch?v=_ZcmuKsyvzg"
+    audio_url = get_audio_url(video_url)
+    if audio_url:
+        print("Successfully retrieved audio URL.")
+    else:
+        print("Failed to retrieve audio URL.")
+    logging.info("222222")
+    print("is in search function  url :")
+    return "2222222"
 
 
 video_id = '_ZcmuKsyvzg'
@@ -87,8 +83,14 @@ def get_audio_url(video_url):
 @app.route('/',methods=["GET"])
 def return_OneText():
     video_url = "https://www.youtube.com/watch?v=_ZcmuKsyvzg"
-    audio_url = get_audio_url(video_url)
+    audio_url = ""
+    try:
+        audio_url = get_audio_url(video_url)
+    except Exception as e:
+        print(f"Error occurred while extracting audio URL: {e}")
+
     if audio_url:
         print("Successfully retrieved audio URL.")
     else:
         print("Failed to retrieve audio URL.")
+    return "22222222"
