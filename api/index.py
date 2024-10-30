@@ -3,6 +3,11 @@ import requests , json , random
 import sys
 sys.path.append('python_modules')
 import yt_dlp
+import logging
+
+# 配置日志
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 app = Flask(__name__)
 def select(a):
     dict ={'Anime':'a','Comic':'b','Game':'c','Literature':'d','Original':'e','Internet':'f','Other':'g','Video':'h','Poem':'i','NCM':'j','Philosophy':'k','Funny':'l'}
@@ -21,6 +26,8 @@ def search():
 
     print("is in search function  url :"+url)
     return url
+
+
 video_id = '_ZcmuKsyvzg'
 API_KEY = 'AIzaSyBeLbXYguI1KK7xZtc03SBSz9zuj5-FiIA'
 

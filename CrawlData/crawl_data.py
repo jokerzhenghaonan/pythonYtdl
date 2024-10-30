@@ -5,6 +5,12 @@ import os
 import sys
 sys.path.append('python_modules')
 import yt_dlp
+import logging
+
+# 配置日志
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 def main():
     print(111)
@@ -51,10 +57,13 @@ def get_video_info(video_id):
     url = f'https://www.googleapis.com/youtube/v3/videos?id={video_id}&key={API_KEY}&part=status,snippet'
     response = requests.get(url)
     data = response.json()
+    logging.info("url:",url)
 
     if 'items' in data and len(data['items']) > 0:
         return data['items'][0]  # 返回视频信息
     else:
+        logging.info("Error: Video not found or inaccessible.")
+
         print("Error: Video not found or inaccessible.")
         return None
 
@@ -74,9 +83,13 @@ def get_audio_url(video_url):
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info_dict = ydl.extract_info(video_url, download=False)
                 audio_url = info_dict['url']
+                logging.info("Audio URL:", audio_url)
+
                 print("Audio URL:", audio_url)
                 return audio_url
         except Exception as e:
+            logging.info(f"Error occurred while extracting audio URL: {e}")
+
             print(f"Error occurred while extracting audio URL: {e}")
             return None
     else:
@@ -89,7 +102,12 @@ def get_audio_url(video_url):
 if __name__ == "__main__":
     video_url = "https://www.youtube.com/watch?v=_ZcmuKsyvzg"
     audio_url = get_audio_url(video_url)
+    logging.info("121132312312312")
     if audio_url:
+        logging.info("Successfully retrieved audio URL.")
+
         print("Successfully retrieved audio URL.")
     else:
+        logging.info("Failed to retrieve audio URL.")
+
         print("Failed to retrieve audio URL.")
